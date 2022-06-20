@@ -3,5 +3,5 @@ variable "prefix" {
 }
 
 variable "location" {
-  default = "us-west-2"
+  default = "westus2"
 }
