@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "mainrg" {
 resource "azurerm_service_plan" "main-serviceplan" {
   name                = "${var.prefix}-appsp"
   resource_group_name = azurerm_resource_group.mainrg.name
-  location            = azurerm_resource_group.main.location
+  location            = azurerm_resource_group.mainrg.location
   sku_name            = "B1"
 }
 
@@ -15,6 +15,11 @@ resource "azurerm_windows_web_app" "main-webapp" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_service_plan.main-serviceplan.location
   service_plan_id     = azurerm_service_plan.main-serviceplan.id
-
+source_control {
+    repo_url           = "https://github.com/Azure-Samples/app-service-web-dotnet-get-started"
+    branch             = "master"
+    manual_integration = true
+    use_mercurial      = false
+  }
   site_config {}
 }
