@@ -3,6 +3,11 @@ resource "azurerm_resource_group" "dotnetrg" {
   location = var.location
 }
 
+resource "random_integer" "random" {
+  min = 1
+  max = 50000 
+}
+
 resource "azurerm_service_plan" "dotnet-serviceplan" {
   name                = "${var.prefix}-appsp"
   resource_group_name = azurerm_resource_group.dotnetrg.name
@@ -12,7 +17,7 @@ resource "azurerm_service_plan" "dotnet-serviceplan" {
 }
 
 resource "azurerm_windows_web_app" "dotnet-webapp" {
-  name                = "${var.prefix}-webapp"
+  name                = random_integer.random.result
   resource_group_name = azurerm_resource_group.dotnetrg.name
   location            = azurerm_service_plan.dotnet-serviceplan.location
   service_plan_id     = azurerm_service_plan.dotnet-serviceplan.id
