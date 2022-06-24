@@ -14,8 +14,8 @@ resource "azurerm_service_plan" "dotnet-serviceplan" {
 resource "azurerm_windows_web_app" "dotnet-webapp" {
   name                = "${var.prefix}-webapp"
   resource_group_name = azurerm_resource_group.dotnetrg.name
-  location            = azurerm_service_plan.main-serviceplan.location
-  service_plan_id     = azurerm_service_plan.main-serviceplan.id
+  location            = azurerm_service_plan.dotnet-serviceplan.location
+  service_plan_id     = azurerm_service_plan.dotnet-serviceplan.id
 source_control {
     repo_url           = "https://github.com/Azure-Samples/app-service-web-dotnet-get-started"
     branch             = "master"
