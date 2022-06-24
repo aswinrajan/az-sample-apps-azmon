@@ -7,6 +7,7 @@ resource "azurerm_service_plan" "main-serviceplan" {
   name                = "${var.prefix}-appsp"
   resource_group_name = azurerm_resource_group.mainrg.name
   location            = azurerm_resource_group.mainrg.location
+  os_type             = "Windows"
   sku_name            = "B1"
 }
 
