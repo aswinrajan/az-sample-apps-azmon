@@ -3,5 +3,5 @@ variable "prefix" {
 }
 
 variable "location" {
-  default = "westus2"
+  default = "westus"
 }
