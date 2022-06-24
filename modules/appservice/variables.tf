@@ -1,5 +1,5 @@
 variable "prefix" {
-    default = "appsvc" 
+    default = "dotnet" 
 }
 
 variable "location" {

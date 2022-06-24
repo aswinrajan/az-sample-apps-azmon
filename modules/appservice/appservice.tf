@@ -1,19 +1,19 @@
-resource "azurerm_resource_group" "mainrg" {
+resource "azurerm_resource_group" "dotnetrg" {
   name     = "${var.prefix}-resources"
   location = var.location
 }
 
-resource "azurerm_service_plan" "main-serviceplan" {
+resource "azurerm_service_plan" "dotnet-serviceplan" {
   name                = "${var.prefix}-appsp"
-  resource_group_name = azurerm_resource_group.mainrg.name
-  location            = azurerm_resource_group.mainrg.location
+  resource_group_name = azurerm_resource_group.dotnetrg.name
+  location            = azurerm_resource_group.dotnetrg.location
   os_type             = "Windows"
   sku_name            = "B1"
 }
 
-resource "azurerm_windows_web_app" "main-webapp" {
+resource "azurerm_windows_web_app" "dotnet-webapp" {
   name                = "${var.prefix}-webapp"
-  resource_group_name = azurerm_resource_group.main.name
+  resource_group_name = azurerm_resource_group.dotnetrg.name
   location            = azurerm_service_plan.main-serviceplan.location
   service_plan_id     = azurerm_service_plan.main-serviceplan.id
 source_control {
