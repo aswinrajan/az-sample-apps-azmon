@@ -11,5 +11,5 @@ terraform {
 }
 
 module "cluster" {
-  source = "./modules/appservice/"
+  source = "./modules/dotnetappservice/"
 }
