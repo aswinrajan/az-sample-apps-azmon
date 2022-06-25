@@ -38,7 +38,10 @@ resource "azurerm_windows_web_app" "dotnet-webapp" {
   location            = azurerm_service_plan.dotnet-serviceplan.location
   service_plan_id     = azurerm_service_plan.dotnet-serviceplan.id
   site_config {
-    application_insights_key = azurerm_application_insights.dotnet-ai.instrumentation_key
+    
+  }
+  app_settings = {
+    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.dotnet-ai.instrumentation_key
   }
 }
 
