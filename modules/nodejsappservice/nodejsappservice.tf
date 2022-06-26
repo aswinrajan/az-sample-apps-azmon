@@ -4,7 +4,7 @@ resource "random_integer" "random" {
 }
 
 
-resource "azurerm_application_insights" "dotnet-ai" {
+resource "azurerm_application_insights" "nodejs-ai" {
   name                = "${var.prefix}-ai"
   location            = var.appsvcRGlocation
   resource_group_name = var.appsvcRG
@@ -12,24 +12,24 @@ resource "azurerm_application_insights" "dotnet-ai" {
   application_type    = "web"
 }
 
-resource "azurerm_service_plan" "dotnet-serviceplan" {
+resource "azurerm_service_plan" "nodejs-serviceplan" {
   name                = "${var.prefix}-appsp"
   resource_group_name = var.appsvcRG
   location            = var.appsvcRGlocation
-  os_type             = "Windows"
+  os_type             = "Linux"
   sku_name            = "B1"
 }
 
-resource "azurerm_windows_web_app" "dotnet-webapp" {
+resource "azurerm_linux_web_app" "nodejs-webapp" {
   name                = random_integer.random.result
   resource_group_name = var.appsvcRG
-  location            = azurerm_service_plan.dotnet-serviceplan.location
-  service_plan_id     = azurerm_service_plan.dotnet-serviceplan.id
+  location            = azurerm_service_plan.nodejs-serviceplan.location
+  service_plan_id     = azurerm_service_plan.nodejs-serviceplan.id
   site_config {
     
   }
   app_settings = {
-    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.dotnet-ai.instrumentation_key
+    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.nodejs-ai.instrumentation_key
   }
 }
 

@@ -1,5 +1,5 @@
 variable "prefix" {
-    default = "dotnet" 
+    default = "nodejs" 
 }
 
 variable "appsvcRGlocation" {
@@ -8,6 +8,5 @@ variable "appsvcRGlocation" {
 variable "appsvcRG" {
 }
 
-variable "law-id" {
-  
+variable "law-id" {  
 }
