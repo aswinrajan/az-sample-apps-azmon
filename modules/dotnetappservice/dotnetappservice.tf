@@ -10,6 +10,9 @@ resource "azurerm_application_insights" "dotnet-ai" {
   resource_group_name = var.appsvcRG
   workspace_id        = var.law-id
   application_type    = "web"
+  tags = {
+    "hidden-link:/subscriptions/${data.azurerm_subscription.current.subscription_id}/resourceGroups/${var.appsvcRG}/providers/Microsoft.Web/sites/${azurerm_service_plan.dotnet-serviceplan.name}" = "Resource"
+  }
 }
 
 resource "azurerm_service_plan" "dotnet-serviceplan" {
@@ -30,6 +33,7 @@ resource "azurerm_windows_web_app" "dotnet-webapp" {
   }
   app_settings = {
     APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.dotnet-ai.instrumentation_key
+    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.dotnet-ai.connection_string
   }
 }
 

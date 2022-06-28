@@ -3,5 +3,5 @@ variable "appsvcRGlocation" {
 }
 
 variable "appsvcRG" {
-  default = "appsvcRG"
+  default = "appsvcrg"
 }
