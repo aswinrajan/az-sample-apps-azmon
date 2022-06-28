@@ -23,17 +23,23 @@ resource "azurerm_log_analytics_workspace" "appsvc-az-LAW" {
   retention_in_days   = 30
 }
 
+data "azurerm_subscription" "current" {
+}
+
+
 
 module "dotnetappservice" {
-  source           = "./modules/dotnetappservice/"
-  appsvcRG         = var.appsvcRG
-  appsvcRGlocation = var.appsvcRGlocation
-  law-id           = azurerm_log_analytics_workspace.appsvc-az-LAW.id
+  source                            = "./modules/dotnetappservice/"
+  appsvcRG                          = var.appsvcRG
+  appsvcRGlocation                  = var.appsvcRGlocation
+  current_subscription_display_name = data.azurerm_subscription.current.display_name
+  law-id                            = azurerm_log_analytics_workspace.appsvc-az-LAW.id
 }
 
 module "nodejsappservice" {
-  source           = "./modules/nodejsappservice/"
-  appsvcRG         = var.appsvcRG
-  appsvcRGlocation = var.appsvcRGlocation
-  law-id           = azurerm_log_analytics_workspace.appsvc-az-LAW.id
+  source                            = "./modules/nodejsappservice/"
+  appsvcRG                          = var.appsvcRG
+  appsvcRGlocation                  = var.appsvcRGlocation
+  current_subscription_display_name = data.azurerm_subscription.current.display_name
+  law-id                            = azurerm_log_analytics_workspace.appsvc-az-LAW.id
 }

@@ -10,6 +10,9 @@ resource "azurerm_application_insights" "nodejs-ai" {
   resource_group_name = var.appsvcRG
   workspace_id        = var.law-id
   application_type    = "web"
+  tags = {
+    "hidden-link:/subscriptions/${var.current_subscription_display_name}/resourceGroups/${var.appsvcRG}/providers/Microsoft.Web/sites/${random_integer.random.result}" = "Resource"
+  }
 }
 
 resource "azurerm_service_plan" "nodejs-serviceplan" {
@@ -30,6 +33,7 @@ resource "azurerm_linux_web_app" "nodejs-webapp" {
   }
   app_settings = {
     APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.nodejs-ai.instrumentation_key
+    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.nodejs-ai.connection_string
   }
 }
 
