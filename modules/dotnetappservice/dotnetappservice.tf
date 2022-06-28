@@ -11,7 +11,7 @@ resource "azurerm_application_insights" "dotnet-ai" {
   workspace_id        = var.law-id
   application_type    = "web"
   tags = {
-    "hidden-link:/subscriptions/${var.current_subscription_display_name}/resourceGroups/${var.appsvcRG}/providers/Microsoft.Web/sites/${random_integer.random.result}" = "Resource"
+    "hidden-link:/subscriptions/${var.current_subscription_display_name}/resourceGroups/${var.appsvcrg}/providers/Microsoft.Web/sites/${random_integer.random.result}" = "Resource"
   }
 }
 
