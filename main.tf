@@ -9,18 +9,21 @@ terraform {
     }
   }
 }
-resource "azurerm_resource_group" "appsvcRG" {
-  name     = var.appsvcRG
-  location = var.appsvcRGlocation
+resource "azurerm_resource_group" "appsvcrg" {
+  name     = var.appsvcrg
+  location = var.appsvcrglocation
 }
 
 
-resource "azurerm_log_analytics_workspace" "appsvc-az-LAW" {
+resource "azurerm_log_analytics_workspace" "appsvc-az-law" {
   name                = "appsvc-LAW"
-  location            = var.appsvcRGlocation
-  resource_group_name = var.appsvcRG
+  location            = var.appsvcrglocation
+  resource_group_name = var.appsvcrg
   sku                 = "PerGB2018"
   retention_in_days   = 30
+  depends_on = [
+    azurerm_resource_group.appsvcrg
+  ]
 }
 
 data "azurerm_subscription" "current" {
@@ -30,16 +33,24 @@ data "azurerm_subscription" "current" {
 
 module "dotnetappservice" {
   source                            = "./modules/dotnetappservice/"
-  appsvcRG                          = var.appsvcRG
-  appsvcRGlocation                  = var.appsvcRGlocation
+  appsvcrg                          = var.appsvcrg
+  appsvcrglocation                  = var.appsvcrglocation
   current_subscription_display_name = data.azurerm_subscription.current.display_name
-  law-id                            = azurerm_log_analytics_workspace.appsvc-az-LAW.id
+  law-id                            = azurerm_log_analytics_workspace.appsvc-az-law.id
+  depends_on = [
+    azurerm_resource_group.appsvcrg,
+    azurerm_log_analytics_workspace.appsvc-az-law
+  ]
 }
 
 module "nodejsappservice" {
   source                            = "./modules/nodejsappservice/"
-  appsvcRG                          = var.appsvcRG
-  appsvcRGlocation                  = var.appsvcRGlocation
+  appsvcrg                          = var.appsvcrg
+  appsvcrglocation                  = var.appsvcrglocation
   current_subscription_display_name = data.azurerm_subscription.current.display_name
-  law-id                            = azurerm_log_analytics_workspace.appsvc-az-LAW.id
+  law-id                            = azurerm_log_analytics_workspace.appsvc-az-law.id
+  depends_on = [
+    azurerm_resource_group.appsvcrg,
+    azurerm_log_analytics_workspace.appsvc-az-law
+  ]
 }
