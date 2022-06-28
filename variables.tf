@@ -1,7 +1,7 @@
-variable "appsvcRGlocation" {
+variable "appsvcrglocation" {
   default = "westus"
 }
 
-variable "appsvcRG" {
+variable "appsvcrg" {
   default = "appsvcrg"
 }

@@ -5,7 +5,7 @@ variable "prefix" {
 variable "appsvcRGlocation" {
 }
 
-variable "appsvcRG" {
+variable "appsvcrg" {
 }
 
 variable "law-id" {
