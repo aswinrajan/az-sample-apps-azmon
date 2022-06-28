@@ -2,7 +2,7 @@ variable "prefix" {
     default = "nodejs" 
 }
 
-variable "appsvcRGlocation" {
+variable "appsvcrglocation" {
 }
 
 variable "appsvcrg" {

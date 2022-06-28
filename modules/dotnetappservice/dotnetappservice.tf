@@ -6,8 +6,8 @@ resource "random_integer" "random" {
 
 resource "azurerm_application_insights" "dotnet-ai" {
   name                = "${var.prefix}-ai"
-  location            = var.appsvcRGlocation
-  resource_group_name = var.appsvcRG
+  location            = var.appsvcrglocation
+  resource_group_name = var.appsvcrg
   workspace_id        = var.law-id
   application_type    = "web"
   tags = {
@@ -17,15 +17,15 @@ resource "azurerm_application_insights" "dotnet-ai" {
 
 resource "azurerm_service_plan" "dotnet-serviceplan" {
   name                = "${var.prefix}-appsp"
-  resource_group_name = var.appsvcRG
-  location            = var.appsvcRGlocation
+  resource_group_name = var.appsvcrg
+  location            = var.appsvcrglocation
   os_type             = "Windows"
   sku_name            = "B1"
 }
 
 resource "azurerm_windows_web_app" "dotnet-webapp" {
   name                = random_integer.random.result
-  resource_group_name = var.appsvcRG
+  resource_group_name = var.appsvcrg
   location            = azurerm_service_plan.dotnet-serviceplan.location
   service_plan_id     = azurerm_service_plan.dotnet-serviceplan.id
   site_config {

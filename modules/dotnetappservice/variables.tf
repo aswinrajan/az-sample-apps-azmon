@@ -2,7 +2,7 @@ variable "prefix" {
     default = "dotnet" 
 }
 
-variable "appsvcRGlocation" {
+variable "appsvcrglocation" {
 }
 
 variable "appsvcrg" {
