@@ -34,6 +34,7 @@ resource "azurerm_linux_web_app" "nodejs-webapp" {
   app_settings = {
     APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.nodejs-ai.instrumentation_key
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.nodejs-ai.connection_string
+    ApplicationInsightsAgent_EXTENSION_VERSION = "~2"
   }
 }
 

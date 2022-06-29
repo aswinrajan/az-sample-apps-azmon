@@ -34,6 +34,7 @@ resource "azurerm_windows_web_app" "dotnet-webapp" {
   app_settings = {
     APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.dotnet-ai.instrumentation_key
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.dotnet-ai.connection_string
+    ApplicationInsightsAgent_EXTENSION_VERSION = "~2"
   }
 }
 
